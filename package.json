@@ -1,0 +1,29 @@
+{
+  "name": "music-app",
+  "version": "1.0.0",
+  "description": "A minimal Electron application for music",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "keywords": [
+    "Electron",
+    "quick",
+    "start",
+    "tutorial",
+    "demo",
+    "music"
+  ],
+  "license": "CC0-1.0",
+  "webkit": {
+    "plugin": true
+  },
+  "devDependencies": {
+    "electron": "^16.0.5",
+    "electron-packager": "^15.4.0"
+  },
+  "dependencies": {
+    "electronify-server": "^0.6.2",
+    "node-static": "^0.7.11"
+  }
+}
