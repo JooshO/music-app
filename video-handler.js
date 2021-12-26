@@ -5,52 +5,15 @@ tag.src = "https://www.youtube.com/iframe_api";
 var firstScriptTag = document.getElementsByTagName("script")[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-var count = 1;
+var count = 0;
 
-// 3. This function creates an <iframe> (and YouTube player)
-//    after the API code downloads.
 var player = [];
-player.push(null);
+var audioList = [];
 
-//TODO: merge this and below function into one, perhaps one that calls the other
-function onYouTubeIframeAPIReady() {
-  var curCount = count;
-  var ctrlq1 = document.getElementById("youtube-audio" + curCount);
-  ctrlq1.innerHTML =
-    '<div id="yt-button1" class="yt-button"></div><div id="youtube-player' +
-    count +
-    '"></div>';
-  //   ctrlq1.style.cssText =
-  //     "width:150px;margin:2em auto;cursor:pointer;cursor:hand;display:none";
-  ctrlq1.addEventListener("click", function () {
-    toggleAudio(curCount);
-  });
-
-  player.push(
-    new YT.Player("youtube-player" + curCount, {
-      height: "0",
-      width: "0",
-      videoId: ctrlq1.dataset.video,
-      playerVars: {
-        autoplay: ctrlq1.dataset.autoplay,
-        loop: ctrlq1.dataset.loop,
-      },
-      events: {
-        onReady: function () {
-          onPlayerReady1(null, curCount);
-        },
-        onStateChange: function () {
-          onPlayerStateChange1(curCount);
-        },
-      },
-    })
-  );
-  count++;
-}
-
-function addVideo(url) {
+function addVideo(url, nick) {
   var curCount = count;
   var data = url.split("=")[1];
+  audioList.push([nick, data]);
   var container = document.getElementById("audio-container");
   var node = document.createElement("div");
   node.classList.add("audio-button");
@@ -62,12 +25,18 @@ function addVideo(url) {
     curCount +
     '" class="yt-button"></div><div id="youtube-player' +
     count +
-    '"></div>';
-  //   ctrlq1.style.cssText =
-  //     "width:150px;margin:2em auto;cursor:pointer;cursor:hand;display:none";
-  ctrlq1.addEventListener("click", function () {
-    toggleAudio(curCount);
-  });
+    '"></div><div class="nickname-holder"><input type="text" id="nickname' +
+    curCount +
+    '" name=id="nickname' +
+    curCount +
+    '" placeholder="nickname">' +
+    nick +
+    "</input></div>";
+  document
+    .getElementById("yt-button" + curCount)
+    .addEventListener("click", function () {
+      toggleAudio(curCount);
+    });
 
   player.push(
     new YT.Player("youtube-player" + count, {
@@ -80,10 +49,10 @@ function addVideo(url) {
       },
       events: {
         onReady: function () {
-          onPlayerReady1(null, curCount);
+          onPlayerReady(null, curCount);
         },
         onStateChange: function () {
-          onPlayerStateChange1(curCount);
+          onPlayerStateChange(curCount);
         },
       },
     })
@@ -113,7 +82,7 @@ function toggleAudio(target) {
     player.at(target).pauseVideo();
     togglePlayButton(false, target);
   } else {
-    for (let i = 1; i < player.length; i++) {
+    for (let i = 0; i < player.length; i++) {
       const video = player[i];
       video.pauseVideo();
       togglePlayButton(false, i);
@@ -124,13 +93,12 @@ function toggleAudio(target) {
   }
 }
 
-function onPlayerReady1(event, target) {
+function onPlayerReady(event, target) {
   player.at(target).setPlaybackQuality("small");
-  document.getElementById("youtube-audio1").style.display = "block";
   togglePlayButton(false, target);
 }
 
-function onPlayerStateChange1(event, target) {
+function onPlayerStateChange(event, target) {
   if (event.data === 0) {
     togglePlayButton(false, target);
   }
@@ -138,6 +106,10 @@ function onPlayerStateChange1(event, target) {
 
 function clickPress(event) {
   if (event.keyCode == 13) {
-    addVideo(document.getElementById("input").value);
+    addVideo(document.getElementById("input").value, "");
   }
+}
+
+function getAudioList() {
+  return audioList;
 }
