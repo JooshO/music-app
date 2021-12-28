@@ -9,7 +9,7 @@
     <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
     <link href="./styles.css" rel="stylesheet">
     <script src="./video-handler.js"></script>
-    <script src="./io.js"></script>
+    
     <title>Overbeek Audio</title>
   </head>
   <body>
@@ -28,15 +28,21 @@
       <input type="url" id="input" name="input" onkeypress="clickPress(event)">
 
 
-      <div class = "TODO List">
+      <div class = "TODOList">
         <ul>
           <li>Add youtube API calls to grab name of video and thumbnail</li>
           <li>Add saving and loading</li>
         </ul>
       </div>
+      <div class = "saveload-holder">
+        <button id="save-button" class="file-button">Save</button>
+        <button id="load-button" class="file-button">Load</button>
+      </div>
     </div>
 
     <!-- You can also require other files to run in this process -->
+    <script src="./io.js"></script>
     <script src="./renderer.js"></script>
+    
   </body>
 </html>

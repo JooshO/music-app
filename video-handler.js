@@ -10,9 +10,23 @@ var count = 0;
 var player = [];
 var audioList = [];
 
+function getAudioList() {
+  console.log("VIDEO HANDLER :: getAudioList :: audio list: " + audioList);
+  console.log(
+    "VIDEO HANDLER :: getAudioList :: audio list[0]: " + audioList[0]
+  );
+  console.log(
+    "VIDEO HANDLER :: getAudioList :: audio list[0][0]: " + audioList[0][0]
+  );
+  return audioList;
+}
+
 function addVideo(url, nick) {
   var curCount = count;
   var data = url.split("=")[1];
+
+  if (data === "undefined") return;
+
   audioList.push([nick, data]);
   var container = document.getElementById("audio-container");
   var node = document.createElement("div");
@@ -27,16 +41,17 @@ function addVideo(url, nick) {
     count +
     '"></div><div class="nickname-holder"><input type="text" id="nickname' +
     curCount +
-    '" name=id="nickname' +
+    '" name="nickname' +
     curCount +
-    '" placeholder="nickname">' +
-    nick +
-    "</input></div>";
+    '" placeholder="nickname"> </div>';
+
   document
     .getElementById("yt-button" + curCount)
     .addEventListener("click", function () {
       toggleAudio(curCount);
     });
+
+  document.getElementById("nickname" + curCount).value = nick;
 
   player.push(
     new YT.Player("youtube-player" + count, {
@@ -106,10 +121,6 @@ function onPlayerStateChange(event, target) {
 
 function clickPress(event) {
   if (event.keyCode == 13) {
-    addVideo(document.getElementById("input").value, "");
+    this.addVideo(document.getElementById("input").value, "");
   }
-}
-
-function getAudioList() {
-  return audioList;
 }

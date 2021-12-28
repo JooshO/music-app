@@ -1,14 +1,13 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, dialog } = require("electron");
+const { app, BrowserWindow, dialog, ipcMain } = require("electron");
 const path = require("path");
 var electronify = require("electronify-server");
-// const io = require("./io");
 
 electronify({
   command: "node",
   args: ["server.js"],
   options: {
-    cwd: "./music-app-win32-x64/resources/app",
+    cwd: "./resources/app",
   },
   url: "http://localhost:8080",
   debug: true,
@@ -17,6 +16,10 @@ electronify({
     width: 1024,
     "title-bar-style": "default",
     frame: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
   },
   ready: function (app) {
     // application event listeners could be added here

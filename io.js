@@ -1,15 +1,18 @@
 let fs = require("fs");
-const { isObject } = require("util");
 let filename = "config";
 
-exports.loadConfig = () => {
+function loadConfig() {
+  var output = [];
+
   //Check if file exists
   if (fs.existsSync(filename)) {
     let data = fs.readFileSync(filename, "utf8").split("\n");
 
-    data.forEach((audio, index) => {
-      let [nick, data] = audio.split(",");
-      addVideo("v=" + data, nick);
+    console.log("IO :: loadConfig :: loaded: " + data);
+    data.forEach((audio) => {
+      let [nick, url] = audio.split(",");
+      console.log("IO :: loadConfig :: url: " + url);
+      output.push(["v=" + url, nick]);
     });
   } else {
     console.log("File Doesn't Exist. Creating new file.");
@@ -17,9 +20,20 @@ exports.loadConfig = () => {
       if (err) console.log(err);
     });
   }
-};
-exports.saveConfig = (data) => {
+
+  console.log("IO :: loadConfig :: output: " + output);
+  return output;
+}
+
+function saveConfig(data = []) {
+  console.log("SAVE CONFIG :: Entering");
+  console.log("SAVE CONFIG :: data= " + data);
   data.forEach((element) => {
-    fs.appendFile(element[0] + "," + element[1] + "\n");
+    console.log("SAVE CONFIG :: ELEMENT 0 = " + element[0]);
+    fs.appendFile(filename, element[0] + "," + element[1] + "\n", (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
   });
-};
+}
