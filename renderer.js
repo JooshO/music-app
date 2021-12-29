@@ -44,7 +44,7 @@ load.addEventListener("click", function () {
 ipcRenderer.on("savepath", (event, data) => {
   console.log("Returned Path: " + data);
   console.log("SCRIPT: renderer :: click for save-button\n");
-  saveConfig(data[0], getAudioList());
+  saveConfig(data[0], getAudioMap());
 });
 
 ipcRenderer.on("loadpath", (event, data) => {

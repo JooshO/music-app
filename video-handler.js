@@ -9,16 +9,15 @@ var count = 0;
 
 var player = [];
 var audioList = [];
+var audioMap = new Map();
 
 function getAudioList() {
-  console.log("VIDEO HANDLER :: getAudioList :: audio list: " + audioList);
-  console.log(
-    "VIDEO HANDLER :: getAudioList :: audio list[0]: " + audioList[0]
-  );
-  console.log(
-    "VIDEO HANDLER :: getAudioList :: audio list[0][0]: " + audioList[0][0]
-  );
   return audioList;
+}
+
+function getAudioMap() {
+  console.log("Audio Map on call: " + audioMap);
+  return audioMap;
 }
 
 function addVideo(url, nick) {
@@ -28,6 +27,7 @@ function addVideo(url, nick) {
   if (data === "undefined") return;
 
   audioList.push([nick, data]);
+  audioMap.set(data, nick);
   var container = document.getElementById("audio-container");
   var node = document.createElement("div");
   node.classList.add("audio-button");
@@ -51,7 +51,11 @@ function addVideo(url, nick) {
       toggleAudio(curCount);
     });
 
-  document.getElementById("nickname" + curCount).value = nick;
+  nickname = document.getElementById("nickname" + curCount);
+  nickname.value = nick;
+  nickname.addEventListener("input", function () {
+    audioMap.set(data, nickname.value);
+  });
 
   player.push(
     new YT.Player("youtube-player" + count, {

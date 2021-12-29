@@ -1,3 +1,4 @@
+const { Console } = require("console");
 let fs = require("fs");
 
 function loadConfig(path) {
@@ -24,7 +25,7 @@ function loadConfig(path) {
   return output;
 }
 
-function saveConfig(path, data = []) {
+function saveConfig(path, data) {
   console.log("SAVE CONFIG :: Entering");
   console.log("SAVE CONFIG :: data= " + data);
 
@@ -35,13 +36,13 @@ function saveConfig(path, data = []) {
     }
   });
 
-  // write new data
-  data.forEach((element) => {
-    console.log("SAVE CONFIG :: ELEMENT 0 = " + element[0]);
-    fs.appendFile(path, element[0] + "," + element[1] + "\n", (err) => {
+  // write the data
+  for (const [key, value] of data) {
+    console.log("Saving " + key + ", " + value);
+    fs.appendFile(path, value + "," + key + "\n", (err) => {
       if (err) {
         console.log(err);
       }
     });
-  });
+  }
 }
