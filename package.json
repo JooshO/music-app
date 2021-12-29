@@ -16,7 +16,7 @@
     "demo",
     "music"
   ],
-  "license": "CC BY-NC-SA",
+  "license": "MIT",
   "webkit": {
     "plugin": true
   },
