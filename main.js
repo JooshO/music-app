@@ -3,11 +3,6 @@ const { app, BrowserWindow, ipcMain, dialog } = require("electron");
 const { autoUpdater } = require("electron-updater");
 const path = require("path");
 var electronify = require("electronify-server");
-// var dotenv = require("dotenv");
-// var dotenvExpand = require("dotenv-expand");
-
-// var myEnv = dotenv.config();
-// dotenvExpand(myEnv);
 
 electronify({
   command: "node",
