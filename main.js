@@ -1,5 +1,6 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, dialog, ipcMain } = require("electron");
+const { app, BrowserWindow, ipcMain, dialog } = require("electron");
+const { autoUpdater } = require("electron-updater");
 const path = require("path");
 var electronify = require("electronify-server");
 
@@ -22,13 +23,72 @@ electronify({
     },
   },
   ready: function (app) {
+    ipcMain.on("restart_app", () => {
+      autoUpdater.quitAndInstall();
+    });
+
     // application event listeners could be added here
     console.log(process.cwd());
+    app.on("window-all-closed", function () {
+      if (process.platform !== "darwin") app.quit();
+    });
+
+    ipcMain.on("selectFileToSave", (event) => {
+      dialog
+        .showOpenDialog({
+          properties: ["openFile", "promptToCreate"],
+          title: "Select audio list file",
+          filters: [{ name: "Overbeek Audio File", extensions: ["oaf"] }],
+        })
+        .then((result) => {
+          console.log(result.canceled);
+          console.log(result.filePaths);
+          if (!result.canceled) {
+            respondWithPath(result.filePaths, event);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log("here");
+    });
+
+    ipcMain.on("selectFileToLoad", (event) => {
+      dialog
+        .showOpenDialog({
+          properties: ["openFile"],
+          title: "Select audio list file",
+          filters: [{ name: "Overbeek Audio File", extensions: ["oaf"] }],
+        })
+        .then((result) => {
+          console.log(result.canceled);
+          console.log(result.filePaths);
+          if (!result.canceled) {
+            respondWithPathLoad(result.filePaths, event);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+
+      console.log("here");
+    });
   },
   preLoad: function (app, window) {
     // window event listeners could be added here
   },
   postLoad: function (app, window, error) {
+    window.once("ready-to-show", () => {
+      autoUpdater.checkForUpdatesAndNotify();
+    });
+
+    autoUpdater.on("update-available", () => {
+      window.webContents.send("update_available");
+    });
+    autoUpdater.on("update-downloaded", () => {
+      window.webContents.send("update_downloaded");
+    });
     // Error only exists if there was an error while loading
     // error == {
     //   event: event,
@@ -59,6 +119,7 @@ electronify({
   })
   .on("child-closed", function (app, stderr, stdout) {
     // the child process has finished
+    app.quit();
   })
   .on("child-error", function (err, app) {
     // close electron if the child crashes
@@ -72,6 +133,12 @@ app.on("quit", function () {
   // io.saveConfig();
 });
 
-app.on("window-all-closed", function () {
-  if (process.platform !== "darwin") app.quit();
-});
+function respondWithPath(paths, event) {
+  console.log("Trying to send " + paths + " to " + event.sender);
+  event.sender.send("savepath", paths);
+}
+
+function respondWithPathLoad(paths, event) {
+  console.log("Trying to send " + paths + " to " + event.sender);
+  event.sender.send("loadpath", paths);
+}

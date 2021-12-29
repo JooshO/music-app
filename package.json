@@ -1,10 +1,12 @@
 {
   "name": "music-app",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "A minimal Electron application for music",
   "main": "main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "electron-builder build --win --publish never",
+    "deploy": "electron-builder build --win --publish always"
   },
   "keywords": [
     "Electron",
@@ -19,13 +21,19 @@
     "plugin": true
   },
   "devDependencies": {
-    "electron-packager": "^15.4.0",
-    "electron": "^16.0.5"
+    "electron": "^16.0.5",
+    "electron-builder": "^22.14.5",
+    "electron-packager": "^15.4.0"
   },
   "author": "Josh Overbeek",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/JooshO/music-app.git"
+  },
   "dependencies": {
     "chokidar": "^3.5.2",
     "drag-drop": "^7.2.0",
+    "electron-updater": "^4.6.1",
     "electronify-server": "^0.6.2",
     "fs-extra": "^10.0.0",
     "node-static": "^0.7.11",
