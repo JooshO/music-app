@@ -99,11 +99,13 @@ function toggleAudio(target) {
     player.at(target).getPlayerState() == 3
   ) {
     player.at(target).pauseVideo();
+    player.at(target).seekTo(0, true);
     togglePlayButton(false, target);
   } else {
     for (let i = 0; i < player.length; i++) {
       const video = player[i];
       video.pauseVideo();
+      video.seekTo(0, true);
       togglePlayButton(false, i);
     }
 
@@ -125,15 +127,18 @@ function onPlayerStateChange(event, target) {
 
 function clickPress(event) {
   if (event.keyCode == 13) {
-    if (
-      /.*www\.youtube\.com\/watch\?v=.*/gi.test(
-        document.getElementById("input").value
-      )
-    ) {
-      this.addVideo(document.getElementById("input").value, "");
-      document.getElementById("input").value = "";
+    var input = document.getElementById("input");
+    if (/.*www\.youtube\.com\/watch\?v=.*/gi.test(input.value)) {
+      this.addVideo(input.value, "");
+      input.value = "";
+      input.setCustomValidity("");
+      input.reportValidity();
+      input.classList.remove("url-input:invalid");
     } else {
-      console.log("Invalid string: " + document.getElementById("input").value);
+      console.log("Invalid string: " + input.value);
+      input.setCustomValidity("Invalid string: " + input.value);
+      input.reportValidity();
+      input.classList.add("url-input:invalid");
     }
   }
 }

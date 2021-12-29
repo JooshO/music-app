@@ -82,6 +82,16 @@ body {
   background-color: #f7f9f7;
   color: #011627;
 }
+
+.url-input {
+  color: black;
+}
+
+.url-input:invalid {
+  outline-color: red;
+  border-color: red;
+}
+
 /* Add styles here to customize the appearance of your app */
 
 #notification {
