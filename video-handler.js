@@ -45,11 +45,19 @@ function addVideo(url, nick) {
     curCount +
     '" placeholder="nickname"> </div>';
 
-  document
-    .getElementById("yt-button" + curCount)
-    .addEventListener("click", function () {
-      toggleAudio(curCount);
-    });
+  var button = document.getElementById("yt-button" + curCount);
+
+  button.innerHTML =
+    "<div class='pause-button vid-button' id='pause" +
+    curCount +
+    "'> <i class='fi fi-rr-pause'></i> </div>";
+
+  // <i class="fi fi-br-play"></i>
+  // <i class="fi fi-br-refresh"></i>;
+
+  button.addEventListener("click", function () {
+    toggleAudio(curCount);
+  });
 
   nickname = document.getElementById("nickname" + curCount);
   nickname.value = nick;

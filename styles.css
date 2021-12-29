@@ -13,11 +13,19 @@
   align-items: center;
 }
 
+.vid-button {
+  color: #fff;
+}
+
 .yt-button {
   background-color: brown;
   height: 200px;
   width: 300px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .yt-button-pressed {
@@ -25,6 +33,10 @@
   height: 200px;
   width: 300px;
   border-radius: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 
 .header {
