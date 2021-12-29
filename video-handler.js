@@ -50,14 +50,49 @@ function addVideo(url, nick) {
   button.innerHTML =
     "<div class='pause-button vid-button' id='pause" +
     curCount +
-    "'> <i class='fi fi-rr-pause'></i> </div>";
+    "'> <i class='fi fi-rr-pause'></i> </div><div class='play-button vid-button' id='play" +
+    curCount +
+    "'> <i class='fi fi-rr-play'></i> </div><div class='rest-button vid-button' id='reset" +
+    curCount +
+    "'> <i class='fi fi-rr-refresh'></i> </div>";
 
-  // <i class="fi fi-br-play"></i>
-  // <i class="fi fi-br-refresh"></i>;
+  document
+    .getElementById("pause" + curCount)
+    .addEventListener("click", function () {
+      if (
+        player.at(curCount).getPlayerState() == 1 ||
+        player.at(curCount).getPlayerState() == 3
+      ) {
+        player.at(curCount).pauseVideo();
+        togglePlayButton(false, curCount);
+      }
+    });
 
-  button.addEventListener("click", function () {
-    toggleAudio(curCount);
-  });
+  document
+    .getElementById("play" + curCount)
+    .addEventListener("click", function () {
+      if (
+        player.at(curCount).getPlayerState() !== 1 &&
+        player.at(curCount).getPlayerState() !== 3
+      ) {
+        for (let i = 0; i < player.length; i++) {
+          if (i == curCount) continue;
+          const video = player[i];
+          video.pauseVideo();
+          video.seekTo(0, true);
+          togglePlayButton(false, i);
+        }
+
+        player.at(curCount).playVideo();
+        togglePlayButton(true, curCount);
+      }
+    });
+
+  document
+    .getElementById("reset" + curCount)
+    .addEventListener("click", function () {
+      player.at(curCount).seekTo(0, true);
+    });
 
   nickname = document.getElementById("nickname" + curCount);
   nickname.value = nick;
