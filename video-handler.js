@@ -16,7 +16,6 @@ function getAudioList() {
 }
 
 function getAudioMap() {
-  console.log("Audio Map on call: " + audioMap);
   return audioMap;
 }
 
@@ -78,8 +77,9 @@ function addVideo(url, nick) {
         for (let i = 0; i < player.length; i++) {
           if (i == curCount) continue;
           const video = player[i];
-          video.pauseVideo();
+          console.log("Pausing video " + i);
           video.seekTo(0, true);
+          video.pauseVideo();
           togglePlayButton(false, i);
         }
 
@@ -124,19 +124,11 @@ function addVideo(url, nick) {
 
 function togglePlayButton(play, target) {
   var targetID = "yt-button" + target;
-  console.log("Play toString: " + play + " Target: " + target);
   document.getElementById(targetID).classList.toggle("yt-button", !play);
-
   document.getElementById(targetID).classList.toggle("yt-button-pressed", play);
 }
 
 function toggleAudio(target) {
-  console.log(
-    "Toggling audio at " +
-      target +
-      ", player state is " +
-      player.at(target).getPlayerState()
-  );
   if (
     player.at(target).getPlayerState() == 1 ||
     player.at(target).getPlayerState() == 3
