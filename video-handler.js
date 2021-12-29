@@ -125,6 +125,15 @@ function onPlayerStateChange(event, target) {
 
 function clickPress(event) {
   if (event.keyCode == 13) {
-    this.addVideo(document.getElementById("input").value, "");
+    if (
+      /.*www\.youtube\.com\/watch\?v=.*/gi.test(
+        document.getElementById("input").value
+      )
+    ) {
+      this.addVideo(document.getElementById("input").value, "");
+      document.getElementById("input").value = "";
+    } else {
+      console.log("Invalid string: " + document.getElementById("input").value);
+    }
   }
 }

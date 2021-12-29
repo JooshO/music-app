@@ -6,3 +6,4 @@ electron-builder.json
 dist
 {
 *.env
+.prettierignore
