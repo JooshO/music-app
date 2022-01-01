@@ -6,9 +6,9 @@ Intended mainly for RPG sessions and easy audio management
 
 ## Current TODO list:
 
-Add youtube API calls to grab name of video and thumbnail
-Color selection for song buttons
-Style or prettyify inputting url
-Try to work out any warnings
-Rearrange songs in the UI somehow (drag and drop?)
-App icon
+1. Add youtube API calls to grab name of video and thumbnail
+2. Color selection for song buttons
+3. Style or prettyify inputting url
+4. Try to work out any warnings
+5. Rearrange songs in the UI somehow (drag and drop?)
+6. App icon
