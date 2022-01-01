@@ -13,6 +13,20 @@
   align-items: center;
 }
 
+.picker {
+  height: 60px;
+  width: 60px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.color-picker {
+  height: 90%;
+  width: 90%;
+}
+
 .vid-button {
   color: #fff;
   padding: 10px;
@@ -20,7 +34,7 @@
 }
 
 .yt-button {
-  background-color: brown;
+  background-color: #a52a2a;
   height: 200px;
   width: 300px;
   border-radius: 20px;

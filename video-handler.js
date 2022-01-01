@@ -25,7 +25,7 @@ function getOrder() {
   return list;
 }
 
-function addVideo(url, nick, c = "red") {
+function addVideo(url, nick, c = "#a52a2a") {
   var curCount = count;
   var data = url.split("=")[1];
 
@@ -55,6 +55,7 @@ function addVideo(url, nick, c = "red") {
     '" placeholder="nickname"> </div>';
 
   var button = document.getElementById("yt-button" + curCount);
+  button.style.backgroundColor = c;
 
   button.innerHTML =
     "<div class='pause-button vid-button' id='pause" +
@@ -63,7 +64,26 @@ function addVideo(url, nick, c = "red") {
     curCount +
     "'> <i class='fi fi-rr-play'></i> </div><div class='rest-button vid-button' id='reset" +
     curCount +
-    "'> <i class='fi fi-rr-refresh'></i> </div>";
+    "'> <i class='fi fi-rr-refresh'></i> </div><div class='picker'><input type='color' class='color-picker' id='colorpick" +
+    curCount +
+    "' value='" +
+    c +
+    "'> </div>";
+
+  colorPicker = document.getElementById("colorpick" + curCount);
+  colorPicker.addEventListener("input", function () {
+    co = document.getElementById("colorpick" + curCount);
+    document.getElementById("yt-button" + curCount).style.backgroundColor =
+      co.value;
+  });
+
+  colorPicker.addEventListener("change", function () {
+    co = document.getElementById("colorpick" + curCount);
+    console.log("Changing color to " + co.value);
+    audioMap.get(data).color = co.value;
+    document.getElementById("yt-button" + curCount).style.backgroundColor =
+      co.value;
+  });
 
   document
     .getElementById("pause" + curCount)
