@@ -36,17 +36,21 @@ function saveConfig(path, data) {
     }
   });
 
-  // write the data
+  var list = [];
   for (const [key, value] of data) {
-    console.log("Saving " + key + ", " + value.nickname + ", " + value.color);
-    fs.appendFile(
-      path,
-      value.nickname + "," + key + "," + value.color + "\n",
-      (err) => {
-        if (err) {
-          console.log(err);
-        }
-      }
-    );
+    list.push([value.nickname, key, value.color]);
   }
+
+  var order = getOrder();
+
+  console.log(order);
+  // write the data
+  order.forEach((i) => {
+    [nickname, key, color] = list.at(i);
+    fs.appendFile(path, nickname + "," + key + "," + color + "\n", (err) => {
+      if (err) {
+        console.log(err);
+      }
+    });
+  });
 }

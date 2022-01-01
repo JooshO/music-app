@@ -15,6 +15,16 @@ function getAudioMap() {
   return audioMap;
 }
 
+function getOrder() {
+  var order = $("#audio-container").sortable("toArray");
+  var list = [];
+  order.forEach((str) => {
+    list.push(str.slice(-1));
+  });
+
+  return list;
+}
+
 function addVideo(url, nick, c = "red") {
   var curCount = count;
   var data = url.split("=")[1];
