@@ -10,6 +10,5 @@ Intended mainly for RPG sessions and easy audio management
 2. Color selection for song buttons
 3. Style or prettyify inputting url
 4. Try to work out any warnings
-5. Rearrange songs in the UI somehow (drag and drop?)
-6. App icon
-7. Youtube searching feature?
+5. App icon
+6. Youtube searching feature?
