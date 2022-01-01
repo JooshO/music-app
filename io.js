@@ -10,9 +10,9 @@ function loadConfig(path) {
 
     console.log("IO :: loadConfig :: loaded: " + data);
     data.forEach((audio) => {
-      let [nick, url] = audio.split(",");
+      let [nick, url, color] = audio.split(",");
       console.log("IO :: loadConfig :: url: " + url);
-      output.push(["v=" + url, nick]);
+      output.push(["v=" + url, nick, color]);
     });
   } else {
     console.log("File Doesn't Exist. Creating new file.");
@@ -38,11 +38,15 @@ function saveConfig(path, data) {
 
   // write the data
   for (const [key, value] of data) {
-    console.log("Saving " + key + ", " + value);
-    fs.appendFile(path, value + "," + key + "\n", (err) => {
-      if (err) {
-        console.log(err);
+    console.log("Saving " + key + ", " + value.nickname + ", " + value.color);
+    fs.appendFile(
+      path,
+      value.nickname + "," + key + "," + value.color + "\n",
+      (err) => {
+        if (err) {
+          console.log(err);
+        }
       }
-    });
+    );
   }
 }

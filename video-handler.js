@@ -8,25 +8,25 @@ firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 var count = 0;
 
 var player = [];
-var audioList = [];
 var audioMap = new Map();
 
-function getAudioList() {
-  return audioList;
-}
-
 function getAudioMap() {
+  console.log($("#audio-container").sortable("toArray").toString());
   return audioMap;
 }
 
-function addVideo(url, nick) {
+function addVideo(url, nick, c = "red") {
   var curCount = count;
   var data = url.split("=")[1];
 
   if (data === "undefined") return;
 
-  audioList.push([nick, data]);
-  audioMap.set(data, nick);
+  const video = {
+    color: c,
+    nickname: nick,
+  };
+  audioMap.set(data, video);
+
   var container = document.getElementById("audio-container");
   var node = document.createElement("div");
   node.classList.add("audio-button");
@@ -97,7 +97,7 @@ function addVideo(url, nick) {
   nickname = document.getElementById("nickname" + curCount);
   nickname.value = nick;
   nickname.addEventListener("input", function () {
-    audioMap.set(data, nickname.value);
+    audioMap.get(data).nickname = nickname.value;
   });
 
   player.push(

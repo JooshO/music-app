@@ -51,6 +51,6 @@ ipcRenderer.on("loadpath", (event, data) => {
   output = loadConfig(data[0]);
   output.forEach((element) => {
     console.log("SCRIPT: renderer :: trying to add  " + element);
-    addVideo(element[0], element[1]);
+    addVideo(element[0], element[1], element[2]);
   });
 });
