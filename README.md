@@ -12,3 +12,4 @@ Intended mainly for RPG sessions and easy audio management
 4. Try to work out any warnings
 5. Rearrange songs in the UI somehow (drag and drop?)
 6. App icon
+7. Youtube searching feature?
