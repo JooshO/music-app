@@ -10,6 +10,14 @@ var count = 0;
 var player = [];
 var audioMap = new Map();
 
+function resetAll() {
+  var container = document.getElementById("audio-container");
+  container.textContent = "";
+  player = [];
+  audioMap = new Map();
+  count = 0;
+}
+
 function getAudioMap() {
   console.log($("#audio-container").sortable("toArray").toString());
   return audioMap;
