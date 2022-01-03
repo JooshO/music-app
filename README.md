@@ -12,3 +12,6 @@ Intended mainly for RPG sessions and easy audio management
 4. Try to work out any warnings
 5. App icon
 6. Youtube searching feature?
+7. Save load order is inconsistent - BUG
+8. make the currently playing song/button more visable
+9. Add alt text or labels some how/other accessibility
