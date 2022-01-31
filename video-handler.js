@@ -146,6 +146,7 @@ function addVideo(url, nick, c = "#a52a2a") {
       playerVars: {
         autoplay: 0,
         loop: 1,
+        playlist: data, // this is necesary for looping a single video properly
       },
       events: {
         onReady: function () {
