@@ -23,7 +23,8 @@
   "devDependencies": {
     "electron": "^16.0.5",
     "electron-builder": "^22.14.5",
-    "electron-packager": "^15.4.0"
+    "electron-packager": "^15.4.0",
+    "video.js": "^7.17.0"
   },
   "author": "Josh Overbeek",
   "repository": {
@@ -36,9 +37,7 @@
     "dotenv-expand": "^5.1.0",
     "drag-drop": "^7.2.0",
     "electron-updater": "^4.6.1",
-    "electronify-server": "^0.6.2",
     "fs-extra": "^10.0.0",
-    "node-static": "^0.7.11",
     "open": "^8.4.0"
   }
 }

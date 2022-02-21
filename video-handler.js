@@ -115,7 +115,6 @@ function addVideo(url, nick, c = "#a52a2a") {
         for (let i = 0; i < player.length; i++) {
           if (i == curCount) continue;
           const video = player[i];
-          console.log("Pausing video " + i);
           video.seekTo(0, true);
           video.pauseVideo();
           togglePlayButton(false, i);
@@ -123,6 +122,10 @@ function addVideo(url, nick, c = "#a52a2a") {
 
         player.at(curCount).playVideo();
         togglePlayButton(true, curCount);
+      } else {
+        console.log(
+          "Can't play, current state is " + player.at(curCount).getPlayerState()
+        );
       }
     });
 
@@ -148,6 +151,9 @@ function addVideo(url, nick, c = "#a52a2a") {
         loop: 1,
         playlist: data, // this is necesary for looping a single video properly
       },
+      host: "https://www.youtube-nocookie.com",
+      showInfo: false,
+      origin: "file://",
       events: {
         onReady: function () {
           onPlayerReady(null, curCount);
